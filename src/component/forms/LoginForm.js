@@ -16,8 +16,8 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'mansupot@hotmail.com',
-            password: '12345678',
+            email: '',
+            password: '',
             errors: {
                 email: '',
                 password: '',
@@ -31,21 +31,10 @@ class LoginForm extends Component {
     }
    
     register() {
-
+        Actions.register();
     }
     onSubmit() {
-        this.setState({
-            error: {
-                email : '',
-                password : '',
-            }, 
-            loading : true,
-        });
-        console.log(this.state);
-        const {
-            email ,
-            password,
-        } = this.state;
+        const { email ,password } = this.state;
         //login
         Firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => { 
@@ -62,7 +51,7 @@ class LoginForm extends Component {
                         this.setState({ error : 'Authentication ailed.',loading : false });
                     });*/
             });
-            
+
         /*
         if(this.state.email == 'mansupot@hotmail.com'&& this.state.password == '12345678'){
             //alert(this.state.email + this.state.password);
