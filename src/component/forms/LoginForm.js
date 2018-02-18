@@ -22,6 +22,7 @@ class LoginForm extends Component {
                 email: '',
                 password: '',
             },
+            loading : false,
         };
         this.checkEmail = this.checkEmail.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
@@ -33,13 +34,43 @@ class LoginForm extends Component {
 
     }
     onSubmit() {
+        this.setState({
+            error: {
+                email : '',
+                password : '',
+            }, 
+            loading : true,
+        });
+        console.log(this.state);
+        const {
+            email ,
+            password,
+        } = this.state;
+        //login
+        Firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => { 
+                this.setState({ error: '', loding : false }); 
+                Actions.home();
+            })
+            .catch(() => {
+                alert("Email or Password are invalid. \n Please re-enter");
+
+                //register
+                /*Firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then(() => { this.setState({ error: '', loading : false }); })
+                    .catch(() => {
+                        this.setState({ error : 'Authentication ailed.',loading : false });
+                    });*/
+            });
+            
+        /*
         if(this.state.email == 'mansupot@hotmail.com'&& this.state.password == '12345678'){
             //alert(this.state.email + this.state.password);
             Actions.home();
         }
         else {
             alert("Email or Password are invalid. \n Please re-enter");
-        }
+        }*/
     }
     checkEmail(){
         if(!Validator.isEmail(this.state.email)) {
