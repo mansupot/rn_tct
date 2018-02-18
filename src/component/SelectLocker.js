@@ -26,6 +26,13 @@ export default class SelectLocker extends Component {
                 >
                      <Text style={styles.buttonText}>Locker 2</Text>  
                 </TouchableOpacity>
+                
+                <TouchableOpacity
+                    style = {styles.button}
+                    onPress={this.onPress}
+                >
+                     <Text style={styles.buttonText}>Locker 2</Text>  
+                </TouchableOpacity>
             </View>
             
         );
