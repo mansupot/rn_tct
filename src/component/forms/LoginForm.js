@@ -8,8 +8,9 @@ import {
     } from 'react-native';
 //import { SocialIcon } from 'react-native-elements';
 import Validator from 'validator';
-
 import { Actions } from 'react-native-router-flux';
+import Firebase from 'firebase';
+
 
 class LoginForm extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class LoginForm extends Component {
     }
     onSubmit() {
         if(this.state.email == 'mansupot@hotmail.com'&& this.state.password == '12345678'){
+            //alert(this.state.email + this.state.password);
             Actions.home();
         }
         else {

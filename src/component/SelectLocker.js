@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 
 export default class SelectLocker extends Component {
+   
+
     render() {
         return(
             <View style={styles.container}>
@@ -20,13 +22,6 @@ export default class SelectLocker extends Component {
                      <Text style={styles.buttonText}>Locker 1</Text>  
                 </TouchableOpacity>
             
-                <TouchableOpacity
-                    style = {styles.button}
-                    onPress={this.onPress}
-                >
-                     <Text style={styles.buttonText}>Locker 2</Text>  
-                </TouchableOpacity>
-                
                 <TouchableOpacity
                     style = {styles.button}
                     onPress={this.onPress}
