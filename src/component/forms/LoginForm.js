@@ -43,13 +43,6 @@ class LoginForm extends Component {
             })
             .catch(() => {
                 alert("Email or Password are invalid. \n Please re-enter");
-
-                //register
-                /*Firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(() => { this.setState({ error: '', loading : false }); })
-                    .catch(() => {
-                        this.setState({ error : 'Authentication ailed.',loading : false });
-                    });*/
             });
     }
     checkEmail(){

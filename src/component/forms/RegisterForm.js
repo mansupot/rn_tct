@@ -27,10 +27,25 @@ export default class RegisterForm extends Component {
         this.checkEmailReg = this.checkEmailReg.bind(this);
         this.checkPasswordReg = this.checkPasswordReg.bind(this);
         this.checkRePasswordReg = this.checkRePasswordReg.bind(this);
-        //this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
     }
-    
+    onSubmit() {
+        const { emailReg ,rePasswordReg } = this.state;
+        //register
+        if(this.state.emailReg != '' && this.state.passwordReg != '' && this.state.rePasswordReg != '' ){
+            Firebase.auth().createUserWithEmailAndPassword(emailReg, rePasswordReg)
+            .then(() => { this.setState({ errorsReg: '' }); })
+            .catch(() => {
+                this.setState({ errorsReg : 'Authentication failed.' });
+                 alert(ths.state.errorsReg)
+            });
+            Actions.pop();
+        } 
+        else {
+            alert('Please fill in the information correctly');
+        }
+    }
     
     checkEmailReg() {
         if(!Validator.isEmail(this.state.emailReg)) {
@@ -61,9 +76,7 @@ export default class RegisterForm extends Component {
 
 
 
-    onSubmit() {
-        Actions.pop();
-    }
+    
     render() {
         return(
             <View style={styles.container}>
@@ -106,6 +119,8 @@ export default class RegisterForm extends Component {
                     style={styles.textInput}
                     placeholder='Re-Password'
                     secureTextEntry
+                    onChangeText={(rePasswordReg) => this.setState({rePasswordReg})}
+                    value={this.state.rePasswordReg}
                     onBlur = {this.checkRePasswordReg}
                 />
                 <Text style={styles.alertText}>{this.state.errorsReg.rePasswordReg}</Text>
