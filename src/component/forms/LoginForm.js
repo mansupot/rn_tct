@@ -51,15 +51,6 @@ class LoginForm extends Component {
                         this.setState({ error : 'Authentication ailed.',loading : false });
                     });*/
             });
-
-        /*
-        if(this.state.email == 'mansupot@hotmail.com'&& this.state.password == '12345678'){
-            //alert(this.state.email + this.state.password);
-            Actions.home();
-        }
-        else {
-            alert("Email or Password are invalid. \n Please re-enter");
-        }*/
     }
     checkEmail(){
         if(!Validator.isEmail(this.state.email)) {
@@ -76,7 +67,7 @@ class LoginForm extends Component {
         else {
             this.setState({ errors: {...this.state.errors, password: '' } });
         }
-    console.log(this.state);
+    //console.log(this.state);
     }
 
     render() {
@@ -175,6 +166,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center'
     },
     alertText: {
-        color : '#660000'
+        color : '#660000',
+        fontSize : 14
     }
   });

@@ -8,8 +8,59 @@ import {
 } from 'react-native';
 import Firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+import Validator from 'validator';
 
 export default class RegisterForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            emailReg : '',
+            passwordReg : '',
+            rePasswordReg : '',
+            errorsReg : {
+                emailReg : '',
+                passwordReg : '',
+                rePasswordReg : '',
+            },
+            //loading : false,
+        };
+        this.checkEmailReg = this.checkEmailReg.bind(this);
+        this.checkPasswordReg = this.checkPasswordReg.bind(this);
+        this.checkRePasswordReg = this.checkRePasswordReg.bind(this);
+        //this.onSubmit = this.onSubmit.bind(this);
+
+    }
+    
+    
+    checkEmailReg() {
+        if(!Validator.isEmail(this.state.emailReg)) {
+            this.setState({ errorsReg: {...this.state.errorsReg, emailReg: 'Not email format' } });
+        }
+        else { 
+            this.setState({ errorsReg: {...this.state.errorsReg, emailReg: '' } });
+        }
+    }
+    checkPasswordReg() {
+        if (this.state.passwordReg.length < 7 ) {
+            this.setState({ errorsReg: {...this.state.errorsReg, passwordReg: 'More than 8 charactor' } });
+        } 
+        else {
+            this.setState({ errorsReg: {...this.state.errorsReg, passwordReg: '' } });
+        }
+    }
+    checkRePasswordReg() {
+        if (this.state.rePasswordReg != this.state.passwordReg) {
+            this.setState({ errorsReg: {...this.state.errorsReg, rePasswordReg: 'Passwords do not match' }});
+            console.log(this.state);
+        }
+        else {
+            this.setState({ errorsReg: {...this.state.errorsReg, rePasswordReg: '' }});
+            console.log(this.state);
+        }
+    }
+
+
+
     onSubmit() {
         Actions.pop();
     }
@@ -24,30 +75,46 @@ export default class RegisterForm extends Component {
                         Register account by Firebase
                     </Text>
                 </View>
+    {/* Name */}
                 <TextInput
                     style={styles.textInput}
                     placeholder='Name'
                 />
+                <Text style={styles.alertText}>{}</Text>
+    {/* Email */}
                 <TextInput
                     style={styles.textInput}
                     placeholder='Email'
-                    // value={this.state.email}
-                    // onBlur = {this.checkEmail}
+                    onChangeText={(emailReg) => this.setState({emailReg: emailReg.toLowerCase()})}
+                    value={this.state.emailReg}
+                    onBlur = {this.checkEmailReg}
                 />
+                <Text style={styles.alertText}>{this.state.errorsReg.emailReg}</Text>
+    {/* Password */}
                 <TextInput
                     style={styles.textInput}
                     placeholder='Password'
                     secureTextEntry
+                    onChangeText={(passwordReg) => this.setState({passwordReg})}
+                    value={this.state.passwordReg}
+                    onKeyPress={this.checkPasswordReg}
+
                 />
+                <Text style={styles.alertText}>{this.state.errorsReg.passwordReg}</Text>
+    {/* Re-Password */}
                 <TextInput
                     style={styles.textInput}
                     placeholder='Re-Password'
                     secureTextEntry
+                    onBlur = {this.checkRePasswordReg}
                 />
+                <Text style={styles.alertText}>{this.state.errorsReg.rePasswordReg}</Text>
+    {/* Tel. */}
                 <TextInput
                     style={styles.textInput}
                     placeholder='Tel.'
                 />
+    {/* Button Register */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this.onSubmit}
@@ -76,7 +143,7 @@ const styles = StyleSheet.create({
         width : 300,
         backgroundColor : '#F8F8FF',
         borderRadius : 20,
-        marginVertical : 6,
+        marginVertical : 3,
         paddingLeft : 15,
         fontSize : 17,
     },
@@ -96,6 +163,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center'
     },
     alertText: {
-        color : '#660000'
+        color : '#660000',
+        fontSize : 14,
     }
   });
