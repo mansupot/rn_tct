@@ -8,6 +8,26 @@ import {
 import Firebase from 'firebase';
 
 class SelectLocker extends Component {
+    //Write data Firebase
+    /*writeUserData({user_ID,user_name,locker_status}) {
+        Firebase.database().ref('UserID/' + user_ID).set({
+             UserName : user_name ,
+             LockerStatus : locker_status
+        });
+        alert('Success Written Firebase');
+    }*/
+
+    writeUserdata({lockerStatus}) {
+        Firebase.database().ref('LockerStatus/' + lockerStatus).set({});
+    }
+    writeNewPostOpen() {
+        updates = {LockerStatus : 1};
+        return Firebase.database().ref().update(updates);
+    }
+    writeNewPostClose() {
+        updates = {LockerStatus : 0};
+        return Firebase.database().ref().update(updates);
+      }
 
     render() {
         return(
@@ -18,14 +38,22 @@ class SelectLocker extends Component {
     {/* Locker1*/}
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this.writeUserData({user_ID : 3,user_name : 'Teera Thongsuwan',locker_status : 1})}
+                    /*onPress={() => this.writeUserData({
+                        user_ID : 3,
+                        user_name : 'Teera Thongsuwan',
+                        locker_status : 1
+                    })}*/
+                    //onPress={() => this.writeUserdata({lockerStatus : 1})}
+                    onPress={() => this.writeNewPostOpen()}
                 >
                      <Text style={styles.buttonText}>Locker 1</Text>  
                 </TouchableOpacity>
     {/* Locker2*/}    
                 <TouchableOpacity
                     style = {styles.button}
-                    activeOpacity
+                    //onPress={}
+                    //onPress={() => this.writeUserdata({lockerStatus : 0})}
+                    onPress={() => this.writeNewPostClose()}
                 >
                      <Text style={styles.buttonText}>Locker 2</Text>  
                 </TouchableOpacity>
@@ -34,14 +62,7 @@ class SelectLocker extends Component {
         );
     }
 
-    //Write data Firebase
-    writeUserData({user_ID,user_name,locker_status}) {
-        Firebase.database().ref('UserID/' + user_ID).set({
-             UserName : user_name ,
-             LockerStatus : locker_status
-        });
-        alert('Success Written Firebase');
-    }
+
 
 } export default SelectLocker
 
