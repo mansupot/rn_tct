@@ -12,7 +12,7 @@ class Routes extends Component {
             <Router>
                 <Stack key="root" hideNavBar={ true }>
                     <Scene key="login" component={ LoginPage } title="Login" initial={ true }/>
-                    <Scene key="home" component={ HomePage } title="Home"/>
+                    <Scene key="main" component={ HomePage } title="My Locker" />
                     <Scene key="register" component={ RegisterPage } title="Register"/>
                 </Stack>
             </Router>

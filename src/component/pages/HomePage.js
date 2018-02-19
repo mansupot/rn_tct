@@ -5,11 +5,13 @@ import {
 } from 'react-native';
 //import LoginForm from '../forms/LoginForm';
 import SelectLocker from '../SelectLocker';
+import MyLocker from '../MyLocker';
 
 class HomePage extends Component {
     render() {
         return(
-           <SelectLocker />
+            <SelectLocker />
+           // <MyLocker />
         );
     }
 }

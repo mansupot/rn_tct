@@ -16,13 +16,12 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
+            email: 'admin@admin.com' ,
+            password: '12345678',
             errors: {
                 email: '',
                 password: '',
             },
-            loading : false,
         };
         this.checkEmail = this.checkEmail.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
@@ -35,11 +34,11 @@ class LoginForm extends Component {
     }
     onSubmit() {
         const { email ,password } = this.state;
-        //login
+        //Login Firebase
         Firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => { 
-                this.setState({ error: '', loding : false }); 
-                Actions.home();
+                this.setState({ error: ''}); 
+                Actions.main();
             })
             .catch(() => {
                 alert("Email or Password are invalid. \n Please re-enter");

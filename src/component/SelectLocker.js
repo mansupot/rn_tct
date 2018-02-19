@@ -3,11 +3,11 @@ import {
     Text,
     View,
     StyleSheet,
-    TouchableOpacity,
+    TouchableOpacity
 } from 'react-native';
+import Firebase from 'firebase';
 
-export default class SelectLocker extends Component {
-   
+class SelectLocker extends Component {
 
     render() {
         return(
@@ -15,16 +15,17 @@ export default class SelectLocker extends Component {
                 <Text style={styles.title}>
                     Choose a Locker for you.
                 </Text>
+    {/* Locker1*/}
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={this.on}
+                    onPress={() => this.writeUserData({user_ID : 3,user_name : 'Teera Thongsuwan',locker_status : 1})}
                 >
                      <Text style={styles.buttonText}>Locker 1</Text>  
                 </TouchableOpacity>
-            
+    {/* Locker2*/}    
                 <TouchableOpacity
                     style = {styles.button}
-                    onPress={this.onPress}
+                    activeOpacity
                 >
                      <Text style={styles.buttonText}>Locker 2</Text>  
                 </TouchableOpacity>
@@ -32,7 +33,17 @@ export default class SelectLocker extends Component {
             
         );
     }
-}
+
+    //Write data Firebase
+    writeUserData({user_ID,user_name,locker_status}) {
+        Firebase.database().ref('UserID/' + user_ID).set({
+             UserName : user_name ,
+             LockerStatus : locker_status
+        });
+        alert('Success Written Firebase');
+    }
+
+} export default SelectLocker
 
 const styles = StyleSheet.create({
     container: {

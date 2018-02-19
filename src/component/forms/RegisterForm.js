@@ -32,7 +32,7 @@ export default class RegisterForm extends Component {
     }
     onSubmit() {
         const { emailReg ,rePasswordReg } = this.state;
-        //register
+        //Register Firebase
         if(this.state.emailReg != '' && this.state.passwordReg != '' && this.state.rePasswordReg != '' ){
             Firebase.auth().createUserWithEmailAndPassword(emailReg, rePasswordReg)
             .then(() => { this.setState({ errorsReg: '' }); })
@@ -74,9 +74,6 @@ export default class RegisterForm extends Component {
         }
     }
 
-
-
-    
     render() {
         return(
             <View style={styles.container}>
