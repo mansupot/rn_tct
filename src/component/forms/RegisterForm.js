@@ -22,7 +22,6 @@ export default class RegisterForm extends Component {
                 passwordReg : '',
                 rePasswordReg : '',
             },
-            //loading : false,
         };
         this.checkEmailReg = this.checkEmailReg.bind(this);
         this.checkPasswordReg = this.checkPasswordReg.bind(this);
@@ -79,7 +78,7 @@ export default class RegisterForm extends Component {
             <View style={styles.container}>
                 <View style={{alignItems : 'center',justifyContent: 'center'}}> 
                     <Text style={styles.title}>
-                        P&S-LOCKER
+                        PROCK-IT-LOCKER
                     </Text>
                     <Text style={{marginVertical : 15, color:'#778899'}}>
                         Register account by Firebase

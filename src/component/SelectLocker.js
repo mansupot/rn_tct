@@ -17,17 +17,10 @@ class SelectLocker extends Component {
         alert('Success Written Firebase');
     }*/
 
-    writeUserdata({lockerStatus}) {
-        Firebase.database().ref('LockerStatus/' + lockerStatus).set({});
-    }
-    writeNewPostOpen() {
-        updates = {LockerStatus : 1};
+    updateToStatus({value}) {
+        updates = {LockerStatus : value};
         return Firebase.database().ref().update(updates);
     }
-    writeNewPostClose() {
-        updates = {LockerStatus : 0};
-        return Firebase.database().ref().update(updates);
-      }
 
     render() {
         return(
@@ -38,24 +31,24 @@ class SelectLocker extends Component {
     {/* Locker1*/}
                 <TouchableOpacity
                     style={styles.button}
+                    onPress={() => this.updateToStatus({value : 1})}
+                    //Sent Datat to Firebase
                     /*onPress={() => this.writeUserData({
                         user_ID : 3,
                         user_name : 'Teera Thongsuwan',
                         locker_status : 1
                     })}*/
                     //onPress={() => this.writeUserdata({lockerStatus : 1})}
-                    onPress={() => this.writeNewPostOpen()}
+
                 >
-                     <Text style={styles.buttonText}>Locker 1</Text>  
+                     <Text style={styles.buttonText}>Open</Text>  
                 </TouchableOpacity>
     {/* Locker2*/}    
                 <TouchableOpacity
                     style = {styles.button}
-                    //onPress={}
-                    //onPress={() => this.writeUserdata({lockerStatus : 0})}
-                    onPress={() => this.writeNewPostClose()}
+                    onPress={() => this.updateToStatus({value : 0})}
                 >
-                     <Text style={styles.buttonText}>Locker 2</Text>  
+                     <Text style={styles.buttonText}>Close</Text>  
                 </TouchableOpacity>
             </View>
             
