@@ -17,6 +17,9 @@ export default class RegisterForm extends Component {
             emailReg : '',
             passwordReg : '',
             rePasswordReg : '',
+            nameReg : '',
+            telReg : '',
+            userID : '1',
             errorsReg : {
                 emailReg : '',
                 passwordReg : '',
@@ -30,20 +33,34 @@ export default class RegisterForm extends Component {
 
     }
     onSubmit() {
+    
         const { emailReg ,rePasswordReg } = this.state;
         //Register Firebase
         if(this.state.emailReg != '' && this.state.passwordReg != '' && this.state.rePasswordReg != '' ){
             Firebase.auth().createUserWithEmailAndPassword(emailReg, rePasswordReg)
-            .then(() => { this.setState({ errorsReg: '' }); })
+            .then(() => { 
+                this.setState({ errorsReg: '' }); 
+                //Write data Firebase
+                Firebase.database().ref('UserInfo/' + this.state.userID).set({
+                    name : this.state.nameReg,
+                    email : this.state.emailReg ,
+                    password : this.state.rePasswordReg,
+                    tel : this.state.telReg
+                });
+                alert('You are registered');
+                Actions.pop();
+                
+            })
             .catch(() => {
                 this.setState({ errorsReg : 'Authentication failed.' });
-                 alert(ths.state.errorsReg)
+                 alert(this.state.errorsReg)
             });
-            Actions.pop();
+            
         } 
         else {
             alert('Please fill in the information correctly');
         }
+        
     }
     
     checkEmailReg() {
@@ -88,6 +105,7 @@ export default class RegisterForm extends Component {
                 <TextInput
                     style={styles.textInput}
                     placeholder='Name'
+                    onChangeText={(nameReg) => this.setState({nameReg})}
                 />
                 <Text style={styles.alertText}>{}</Text>
     {/* Email */}
@@ -124,6 +142,7 @@ export default class RegisterForm extends Component {
                 <TextInput
                     style={styles.textInput}
                     placeholder='Tel.'
+                    onChangeText={(telReg) => this.setState({telReg})}
                 />
     {/* Button Register */}
                 <TouchableOpacity
