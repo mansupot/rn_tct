@@ -13,40 +13,54 @@ import Validator from 'validator';
 export default class RegisterForm extends Component {
     constructor(props) {
         super(props);
+        this.numberUser = Firebase.database().ref().child('NumberUser');
         this.state = {
-            emailReg : '',
-            passwordReg : '',
-            rePasswordReg : '',
-            nameReg : '',
-            telReg : '',
-            userID : '1',
+            emailReg : 'admin@hotmail.com',
+            passwordReg : '12345678',
+            rePasswordReg : '12345678',
+            nameReg : 'admin',
+            telReg : '0845747541',
             errorsReg : {
                 emailReg : '',
                 passwordReg : '',
                 rePasswordReg : '',
+            countUser : '',
             },
         };
         this.checkEmailReg = this.checkEmailReg.bind(this);
         this.checkPasswordReg = this.checkPasswordReg.bind(this);
         this.checkRePasswordReg = this.checkRePasswordReg.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
+    }
+    componentDidMount(){
+        this.numberUser.on('value',snap => {
+            this.setState({ 
+                countUser : snap.val() + 1
+            });
+        })
     }
     onSubmit() {
-    
         const { emailReg ,rePasswordReg } = this.state;
         //Register Firebase
         if(this.state.emailReg != '' && this.state.passwordReg != '' && this.state.rePasswordReg != '' ){
             Firebase.auth().createUserWithEmailAndPassword(emailReg, rePasswordReg)
             .then(() => { 
                 this.setState({ errorsReg: '' }); 
+
                 //Write data Firebase
-                Firebase.database().ref('UserInfo/' + this.state.userID).set({
+                Firebase.database().ref('UserInfo/' + this.state.countUser).set({
                     name : this.state.nameReg,
                     email : this.state.emailReg ,
                     password : this.state.rePasswordReg,
-                    tel : this.state.telReg
+                    tel : this.state.telReg,
                 });
+
+                //Update count User
+                updateToCountUser = {
+                    NumberUser : this.state.countUser 
+                };
+                Firebase.database().ref().update(updateToCountUser);
+
                 alert('You are registered');
                 Actions.pop();
                 
