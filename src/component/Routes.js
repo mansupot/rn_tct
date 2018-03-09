@@ -4,7 +4,7 @@ import { Router , Stack , Scene } from 'react-native-router-flux';
 
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import RegisterPage from './pages/RegisterPage';
+import RegisterPage from './pages/RegisterPage';   
 
 class Routes extends Component {
     render() {
